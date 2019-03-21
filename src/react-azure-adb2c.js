@@ -125,13 +125,12 @@ const authentication = {
   },
   signOut: () => window.msal.logout(),
   getAccessToken: () => state.accessToken,
-  refreshAccessToken: () => {
+  refreshAccessToken: function refreshAccessToken() {
     const localMsalApp = window.msal
     const graphScopes = state.scopes
     localMsalApp.loginPopup(graphScopes).then(
       function(idToken) {
-        console.log(idToken)
-        //login success
+        state.accessToken = idToken
       },
       function(error) {
         //login failure
