@@ -124,7 +124,21 @@ const authentication = {
     };
   },
   signOut: () => window.msal.logout(),
-  getAccessToken: () => state.accessToken
+  getAccessToken: () => state.accessToken,
+  refreshAccessToken: () => {
+    const localMsalApp = window.msal
+    const graphScopes = state.scopes
+    localMsalApp.loginPopup(graphScopes).then(
+      function(idToken) {
+        console.log(idToken)
+        //login success
+      },
+      function(error) {
+        //login failure
+        console.log(error)
+      }
+    )
+  }
 }
 
 export default authentication;
